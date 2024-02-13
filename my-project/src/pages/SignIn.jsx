@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import {  useDispatch, useSelector } from "react-redux"
 import { signInStart,signInSuccess, signInFailure } from "../redux/user/userSlice.js"
+import OAuth from "../components/OAuth.jsx"
 
 
 function SignIn() {
@@ -53,9 +54,10 @@ function SignIn() {
       
         <input type="text" placeholder='email' className='border p-3 rounded-lg' id="email" onChange={handleChange}/>
         <input type="text" placeholder='password' className='border p-3 rounded-lg' id="password" onChange={handleChange}/>
-        <button disabled={loading} className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80 cursor-pointer h-10">
+        <button disabled={loading} className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80 cursor-pointer h-12 ">
           {loading?'Loading...':'Sign In'}
-          </button>
+        </button>
+          <OAuth/>
       </form>
       <div className="flex gap-2 mt-5">
         <p>Dont Have an account?</p>
@@ -63,7 +65,8 @@ function SignIn() {
           <span className="text-blue-500">Sign Up</span>
         </Link>
       </div>
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500">{error.message}</p>}
+
     </div>
   )
 }
