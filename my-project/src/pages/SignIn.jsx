@@ -20,9 +20,11 @@ function SignIn() {
   }
   const handleSubmit = async (e) =>{
     e.preventDefault()
-    try{
+    
+  try{
       // setLoading(true)
       dispatch(signInStart())
+      console.log("started sign in")
       const res = await fetch('/api/auth/signin',
       {
         method:'POST',
@@ -33,14 +35,16 @@ function SignIn() {
       })
       const data = await res.json()
       if(data.success === false){
-        dispatch(signInFailure(data))
+        dispatch(signInFailure(data.message))
+        console.log("sign in failure")
         return
       }
       // setLoading(false)//loading is completed
       // setError(null)
+      console.log("sign in successful")
       dispatch(signInSuccess(data))
       navigate('/')
-      console.log(data)
+      
     }catch(error){
       dispatch(signInFailure(error.message))
     }
@@ -53,7 +57,7 @@ function SignIn() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       
         <input type="text" placeholder='email' className='border p-3 rounded-lg' id="email" onChange={handleChange}/>
-        <input type="text" placeholder='password' className='border p-3 rounded-lg' id="password" onChange={handleChange}/>
+        <input type="password" placeholder='password' className='border p-3 rounded-lg' id="password" onChange={handleChange}/>
         <button disabled={loading} className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80 cursor-pointer h-12 ">
           {loading?'Loading...':'Sign In'}
         </button>
