@@ -3,7 +3,7 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/
 import { useRef, useState, useEffect } from "react";
 import { app } from "../firebase";
 import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure, signOutStart, signOutUserFailure, signOutUserSuccess } from "../redux/user/userSlice.js";
-
+import {Link} from 'react-router-dom'
 
 function Profile() {
   const fileRef = useRef(null);
@@ -128,6 +128,10 @@ const handleSignOut = async () =>{
         <input  onChange={handleChange} defaultValue={currentUser.email} type="text" placeholder="email" className="border p-3 rounded-lg" id="email" />
         <input  onChange={handleChange} type="text" placeholder="password" className="border p-3 rounded-lg" id="password" />
         <button className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80">Update</button>
+        <Link  className='bg-green-700 text-white rounded-lg uppercase text-center 
+        hover:opacity-95' to={"/create-listing"}>
+          Create Listing
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span onClick={handleDeleteUser} className="text-red-700 cursor-pointer">Delete account</span>
